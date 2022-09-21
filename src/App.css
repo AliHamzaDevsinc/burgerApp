@@ -1,0 +1,31 @@
+.header {
+  background-color: brown;
+}
+
+.header p {
+  margin: 0;
+  padding: 0;
+}
+
+.header .logo {
+  height: 4rem;
+}
+
+.logo img {
+  height: 80%;
+}
+
+.Burger__Burger__2h2kL {
+  width: 700px;
+  height: 600px;
+}
+
+.BurgerIngredient__BreadTop__2Pkwe {
+  height: 20%;
+  background: linear-gradient(#bc581e,#e27b36);
+  border-radius: 50% 50% 0 0;
+  position: relative;
+  width: 80%;
+  box-shadow: inset -15px 0 #c15711;
+  margin: 2% auto;
+}
