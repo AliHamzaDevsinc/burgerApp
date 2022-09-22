@@ -10,14 +10,17 @@ import { useState, userContext, createContext } from 'react';
 import { changeQuantity, setDisable } from './js/main'
 import ingredientsDetail from './js/ingredients'
 import BurgerInnerContents from './components/BurgerInnerContents';
+import { UrlContext } from './js/links';
+import { useUrl } from './js/hook';
 
 
 const BurgerIngredients = createContext();
 
 const App = () => {
+  const url = useUrl();
 
   return (
-    <BurgerIngredients.Provider value={ingredientsDetail}>
+    <UrlContext.Provider value={url}>
       <div className="header">
         <div className='logo'>
           <img src={logo}/>
@@ -59,7 +62,7 @@ const App = () => {
           </div>
         </div>
       </div>
-  </BurgerIngredients.Provider>
+  </UrlContext.Provider>
   );
 }
 
