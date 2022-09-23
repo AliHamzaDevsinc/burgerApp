@@ -6,18 +6,18 @@ import './CSS/layout.css';
 import './CSS/modal.css';
 import './CSS/buildControl.css';
 import './CSS/buildControls.css';
-import { useState, userContext, createContext } from 'react';
+import { useState, userContext, createContext, useContext } from 'react';
 import { changeQuantity, setDisable } from './js/main'
 import ingredientsDetail from './js/ingredients'
 import BurgerInnerContents from './components/BurgerInnerContents';
-
-
-const BurgerIngredients = createContext();
+import burgerIngredients from './js/ingredientContext';
 
 const App = () => {
-
+  const burgerContent = useContext(burgerIngredients)
+  const ingredients = burgerContent['ingredients']
+  // console.log("Hello ", burgerContent['ingredients']['Meat'])
   return (
-    <BurgerIngredients.Provider value={ingredientsDetail}>
+    <>
       <div className="header">
         <div className='logo'>
           <img src={logo}/>
@@ -29,37 +29,35 @@ const App = () => {
             <div className='Seeds1'></div>
             <div className='Seeds2'></div>
           </div>
-          <BurgerInnerContents ingredients={ingredientsDetail} />
-          {console.log("ingredientsDetail")}
-          {console.log(ingredientsDetail)}
-          {console.log("ingredientsDetail")}
+          <BurgerInnerContents ingredients={ingredients} />
+          {console.log(ingredients["Lettuce"].quantity)}
           <div className='BreadBottom'></div>
         </div>
         <div className='BuildControls'>
           <p style={{textAlign: "center"}}>Current Price <strong>$3.0</strong></p>
           <div className="BuildControl">
             <div className="Label">Lettuce</div>
-            <button className="Less" disabled={setDisable(ingredientsDetail["hash"]['Lettuce'])} onClick={() => changeQuantity(ingredientsDetail, 'Remove', 'Lettuce')}>Less</button>
-            <button className="More" onClick={() => changeQuantity(ingredientsDetail, 'Add', 'Lettuce')}>More</button>
+            <button clasName="Less" disabled={setDisable(ingredients['Lettuce'])} onClick={() => burgerContent.update("Lettuce", "Remove", ingredients["Lettuce"].quantity)}>Less</button>
+            <button className="More" onClick={() => burgerContent.update("Lettuce", "Add", ingredients["Lettuce"].quantity)}>More</button>
           </div>
           <div className="BuildControl">
             <div className="Label">Bacon</div>
-            <button className="Less" disabled={setDisable(ingredientsDetail["hash"]['Bacon'])} onClick={() => changeQuantity(ingredientsDetail, 'Remove', 'Bacon')}>Less</button>
-            <button className="More" onClick={() => changeQuantity(ingredientsDetail, 'Add', 'Bacon')}>More</button>
+            <button clasName="Less" disabled={setDisable(ingredients['Bacon'])} onClick={() => burgerContent.update("Bacon", "Remove", ingredients["Bacon"].quantity)}>Less</button>
+            <button className="More" onClick={() => burgerContent.update("Bacon", "Add", ingredients["Bacon"].quantity)}>More</button>
           </div>
           <div className="BuildControl">
             <div className="Label">Cheese</div>
-            <button className="Less" disabled={setDisable(ingredientsDetail["hash"]['Cheese'])} onClick={() => changeQuantity(ingredientsDetail, 'Remove', 'Cheese')}>Less</button>
-            <button className="More" onClick={() => changeQuantity(ingredientsDetail, 'Add', 'Cheese')}>More</button>
+            <button clasName="Less" disabled={setDisable(ingredients['Cheese'])} onClick={() => burgerContent.update("Cheese", "Remove", ingredients["Cheese"].quantity)}>Less</button>
+            <button className="More" onClick={() => burgerContent.update("Cheese", "Add", ingredients["Cheese"].quantity)}>More</button>
           </div>
           <div className="BuildControl">
             <div className="Label">Meat</div>
-            <button className="Less" disabled={setDisable(ingredientsDetail["hash"]['Meat'])} onClick={() => changeQuantity(ingredientsDetail, 'Remove', 'Meat')}>Less</button>
-            <button className="More" onClick={() => changeQuantity(ingredientsDetail, 'Add', 'Meat')}>More</button>
+            <button clasName="Less" disabled={setDisable(ingredients['Meat'])} onClick={() => burgerContent.update("Meat", "Remove", ingredients["Meat"].quantity)}>Less</button>
+            <button className="More" onClick={() => burgerContent.update("Meat", "Add", ingredients["Meat"].quantity)}>More</button>
           </div>
         </div>
       </div>
-  </BurgerIngredients.Provider>
+  </>
   );
 }
 

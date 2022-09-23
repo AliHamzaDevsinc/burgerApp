@@ -1,5 +1,8 @@
-const ingredientsDetail = {
-  "hash": {
+import { useState } from "react"
+import BurgerIngredients from "./ingredientContext";
+
+const IngredientsDetail = (props) => {
+  const hash = {
     "Lettuce": {
     "quantity": 0,
     "price": 0.25
@@ -16,11 +19,26 @@ const ingredientsDetail = {
       "quantity": 0,
       "price": 0.75
     }
-  },
-  updateHash: function (ingredient){
-    const quantity = this.hash[ingredient].quantity
-    this.hash[ingredient].quantity = quantity + 1
   }
+  const [ingredients, setIngredients] = useState(hash);
+
+  const update = (ingredient, action, qty) => {
+    qty = (action === 'Add' ? qty + 1 : qty - 1)
+
+    setIngredients({
+        ...ingredients,
+        [ingredient]: {
+          ...ingredients[ingredient],
+          "quantity": qty,
+        }
+      })
+  }
+
+  return (
+    <BurgerIngredients.Provider value={{ingredients, update}}>
+      {props.children}
+    </BurgerIngredients.Provider>
+  )
 }
 
-export default ingredientsDetail
+export default IngredientsDetail
